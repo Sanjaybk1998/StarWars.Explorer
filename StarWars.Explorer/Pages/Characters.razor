@@ -1,0 +1,16 @@
+﻿@page "/characters"
+
+<PaginatedListPage TItem="Character"
+				   Title="Star Wars Characters"
+				   LoadData="LoadCharacters"
+				   ItemTemplate="CharacterTemplate">
+</PaginatedListPage>
+
+@code {
+	private async Task<PagedResult<Character>> LoadCharacters(string search, int page)
+	{
+		return await SwapiService.GetCharactersAsync(search, page);
+	}
+
+	private RenderFragment<Character> CharacterTemplate => character => @<CharacterCard Character="character" />;
+}

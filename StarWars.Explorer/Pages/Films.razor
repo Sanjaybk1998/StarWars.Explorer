@@ -1,0 +1,16 @@
+﻿@page "/films"
+
+<PaginatedListPage TItem="Film"
+				   Title="Star Wars Films"
+				   LoadData="LoadFilms"
+				   ItemTemplate="FilmTemplate">
+</PaginatedListPage>
+
+@code {
+	private async Task<PagedResult<Film>> LoadFilms(string search, int page)
+	{
+		return await SwapiService.GetFilmsAsync(search, page);
+	}
+
+	private RenderFragment<Film> FilmTemplate => film => @<FilmCard Film="film" />;
+}

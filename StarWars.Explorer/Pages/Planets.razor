@@ -1,0 +1,16 @@
+﻿@page "/planets"
+
+<PaginatedListPage TItem="Planet"
+                   Title="Star Wars Planets"
+                   LoadData="LoadPlanets"
+                   ItemTemplate="PlanetTemplate">
+</PaginatedListPage>
+
+@code {
+	private async Task<PagedResult<Planet>> LoadPlanets(string search, int page)
+	{
+		return await SwapiService.GetPlanetsAsync(search, page);
+	}
+
+	private RenderFragment<Planet> PlanetTemplate => planet => @<PlanetCard Planet="planet" />;
+}
